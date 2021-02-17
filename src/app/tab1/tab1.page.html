@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Places
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scrollEvents="false">
+  <br>
+  <ion-item lines="none">
+    <ion-label class="input-title ion-no-margin" position="stacked">Address</ion-label>
+    <ion-input class="input-style" type="text" [(ngModel)]="search_address" placeholder="Enter Address" clearInput>
+    </ion-input>
+  </ion-item>
+  <br>
+
+  <ion-item lines="none">
+    <ion-label class="input-title ion-no-margin" position="stacked">Radius</ion-label>
+    <ion-range class="ion-padding-horizontal" [(ngModel)]="search_radius" min="0" max="20" pin="true" color="primary"></ion-range>
+  </ion-item>
+  <br>
+
+  <ion-button type="submit" class="ion-padding-horizontal" (click)="searchAddress()" color="primary" expand="block">Search</ion-button>
+  <br>
+  <div id="map_canvas"></div>
+</ion-content>
