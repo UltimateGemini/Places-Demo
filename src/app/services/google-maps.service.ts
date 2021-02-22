@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GoogleMap, GoogleMaps, GoogleMapsAnimation, Marker, MyLocation, Geocoder, GeocoderResult, Circle } from '@ionic-native/google-maps';
-import { BehaviorSubject } from 'rxjs';
+import { GoogleMap, GoogleMaps, GoogleMapsAnimation, Marker, MyLocation, Geocoder, GeocoderResult, Circle, BaseArrayClass } from '@ionic-native/google-maps';
 import { FoursquareService } from './foursquare.service';
 
 @Injectable({
@@ -12,14 +11,15 @@ export class GoogleMapsService {
   private _defaultQuery = {
     term: 'Tacos',
     address: '',
-    radius: '16093' // = 10 miles
+    radius: '8046' // = 5 miles
   };
+  public points: any;
 
   constructor(public fourSquareService: FoursquareService) { }
 
   public loadMap() {
     this.map = GoogleMaps.create('map_canvas');
-    this.getMyLocation();
+    this.getCurrentLocation();
   }
 
   public geocodeAddress(address: string, radius: number) {
@@ -73,84 +73,9 @@ export class GoogleMapsService {
     }
   }
 
-
-
-  private getMyLocation() {
-    try {
-      // this.map.clear();
-
-      // Gets your current location
-      this.map.getMyLocation().then((location: MyLocation) => {
-        if (location) {
-          console.log('location', location.latLng);
-          // Turn location obj to string and combine.
-          var locationString = Object.keys(location.latLng).map(key => location.latLng[key]).join(',');
-          this._defaultQuery.address = locationString;
-
-          this.getVenuesNearLocation();
-
-          // Ad marker to default location
-          let marker: Marker = this.map.addMarkerSync({
-            title: 'Here I am!',
-            position: location.latLng,
-            animation: GoogleMapsAnimation.BOUNCE
-          });
-          marker.showInfoWindow();
-
-          // Adds marker to default position
-          this.map.animateCamera({
-            'target': location.latLng,
-            'zoom': 13,
-            'duration': 5000
-          });
-
-          // TO FIX : MARKERS NOT PUTTING DOWN MARKERS
-          // Add markers to venues
-          // var bounds = [];
-          // var markers = this.venuesPositions.map(function (options) {
-          //   bounds.push(options.position);
-          //   console.log('bounds', bounds);
-          //   return this.map.addMarker(options);
-          // });
-
-          // Set a camera position that includes all markers.
-          // this.map.moveCamera({
-          //   target: bounds
-          // });
-
-          // markers[markers.length - 1].showInfoWindow();
-
-
-          // Adds marker to position
-          // this.map.animateCamera({
-          //   'target': location.latLng,
-          //   'zoom': 15,
-          //   'duration': 5000
-          // });
-          // Adds radius to position
-          // this.map.addCircle({
-          //   'center': location.latLng,
-          //   'radius': 1,
-          //   'strokeColor': '#078C03',
-          //   'strokeWidth': 1,
-          //   'fillColor': '#3FBF04'
-          // }).then((circle: Circle) => {
-          //   this.map.moveCamera({
-          //     target: circle.getBounds()
-          //   });
-          // });
-        }
-      }).catch(err => {
-        console.log('Error: ', err.error_message);
-      });
-    } catch (error) {
-      console.log('Error: ', error);
-    }
-  }
-
-  private getVenuesNearLocation() {
+  private getVenuesNearLocation(query) {
     if (this._defaultQuery) {
-      this.fourSquareService.getVenues(this._defaultQuery).subscribe(venues => {
+      this.fourSquareService.getVenues(query).subscribe(venues => {
         if (venues) {
           this.venuesPositions = venues.map((v: any) => {
             return {
@@ -165,6 +90,56 @@ export class GoogleMapsService {
         }
         console.log('VENUES', this.venuesPositions);
       });
+    }
+  }
+
+  private getCurrentLocation() {
+    try {
+      this.map.getMyLocation().then((location: MyLocation) => {
+        if (location) {
+          // Turn location obj to string and combine.
+          var locationString = Object.keys(location.latLng).map(key => location.latLng[key]).join(',');
+          this._defaultQuery.address = locationString;
+
+          // Move Camera to current location
+          this.map.animateCamera({
+            'target': location.latLng,
+            'zoom': 12,
+            'duration': 3000
+          });
+
+          // Adds marker to current location
+          let marker: Marker = this.map.addMarkerSync({
+            title: 'You Are Here',
+            position: location.latLng,
+            icon: 'Crimson',
+            animation: GoogleMapsAnimation.BOUNCE
+          });
+          marker.showInfoWindow();
+
+          // Gets venues near current location
+          this.getVenuesNearLocation(this._defaultQuery);
+
+          // Adds markers to venues
+          setTimeout(() => {
+            let baseArray: BaseArrayClass<any> = new BaseArrayClass<any>(this.venuesPositions);
+            baseArray.mapAsync((mOption: any, callback: (marker: Marker) => void) => {
+              this.map.addMarker({
+                'position': mOption.position,
+                'title': mOption.title,
+                'icon': 'Navy',
+                'snippet': mOption.address
+              }).then(callback);
+            }).then((markers: Marker[]) => {
+              console.log('Markers: ', markers);
+            });
+          }, 3000);
+        }
+      }).catch(err => {
+        console.log('Error: ', err.error_message);
+      });
+    } catch (error) {
+      console.log('Error: ', error);
     }
   }
 }
