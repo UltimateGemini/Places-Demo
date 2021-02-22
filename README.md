@@ -7,7 +7,7 @@ This is a simple app demo of using Google Maps API & Four Sqaure Places API. By 
 ### Built With
 
 * [Ionic 5](https://ionicframework.com/docs)
-* [Angualar 11](https://angular.io/docs)
+* [Angular 11](https://angular.io/docs)
 * [Cordova-plugin-googlemaps](https://github.com/mapsplugin/cordova-plugin-googlemaps-doc)
 * [FourSquare Places API](https://developer.foursquare.com/docs/places-api/)
 
