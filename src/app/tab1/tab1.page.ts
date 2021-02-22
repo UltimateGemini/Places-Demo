@@ -31,27 +31,20 @@ export class Tab1Page implements AfterContentInit {
   }
 
   ngAfterContentInit(){
-    // this.getVenues(this.searchForm.value);
-    // this.platform.ready().then(() => {
-    //   this.gMapsService.loadMap();
-    // });
-    this.gMapsService.loadMap();
+    this.platform.ready().then(() => {
+      this.gMapsService.loadMap();
+    });
   }
 
   async onSubmit() {
     const radius = this.convertMilesToMeters(this.searchForm.get('search_radius').value);
     this.searchForm.get('search_radius').setValue(radius);
-    console.log('searchForm', this.searchForm.value);
-
-    const { search_address, search_radius } = this.searchForm.value;
-
-    this.gMapsService.map.clear();
-
-    this.gMapsService.geocodeAddress(search_address, search_radius);
+    this.gMapsService.geocodeAddress(this.searchForm.value);
     this.searchForm.reset();
   }
 
   private convertMilesToMeters(miles: number) {
-    return miles * 1609.344;
+    const fixedNumber = Math.round(miles * 1609.344);
+    return fixedNumber;
   }
 }
