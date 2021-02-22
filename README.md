@@ -1,7 +1,7 @@
 # Places-Demo
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This is a simple app demo of using Google Maps API & Four Sqaure Places API. By default a search term, location and radius will be displayed. When the user enters a term, address and radius in the input fields then submits, it will display the positon on the map below with a red marker, Blue markers for nearest venues and a circle showing the radius (5 miles).
+This is a simple app demo of using Google Maps API & Four Sqaure Places API. By default a search term(Tacos), your currentlocation and radius(5 Miles) will be displayed. When the user enters a term, address and radius in the input fields then submits, it will display the positon on the map below with a red marker, Blue markers for nearest venues and a circle showing the radius.
 
 
 ### Built With
