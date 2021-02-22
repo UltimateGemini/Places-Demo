@@ -6,21 +6,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content scrollEvents="false">
-  <ion-grid>
-    <ion-row class="ion-justify-content-center ion-align-items-center ion-text-center">
-      <ion-col size="6">
-        <ion-text *ngIf="searched.length === 0">No Data</ion-text>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content>
 
-  <ion-list *ngIf="searched">
-    <ion-item *ngFor="let item of searched">
-      <ion-label>
-        <h2>{{item.locality}}, {{item.adminArea}}</h2>
-        <h3 *ngIf="item.postalCode && item.subAdminArea">{{item.postalCode}}, {{item.subAdminArea}}</h3>
-      </ion-label>
-    </ion-item>
-  </ion-list>
 </ion-content>

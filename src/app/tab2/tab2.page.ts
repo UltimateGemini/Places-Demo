@@ -8,11 +8,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  searched: any = [];
 
-  constructor(public gMapsService: GoogleMapsService) {
-    this.searched = this.gMapsService.placesSearched;
-    console.log(this.searched);
+  constructor() {
+
   }
 
 }

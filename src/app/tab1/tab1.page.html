@@ -7,21 +7,21 @@
 </ion-header>
 
 <ion-content scrollEvents="false">
-  <br>
-  <ion-item lines="none">
-    <ion-label class="input-title ion-no-margin" position="stacked">Address</ion-label>
-    <ion-input class="input-style" type="text" [(ngModel)]="search_address" placeholder="Enter Address" clearInput>
-    </ion-input>
-  </ion-item>
-  <br>
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <ion-item lines="none" class="ion-padding-top">
+      <ion-label class="input-title ion-no-margin" position="stacked">Search Venue</ion-label>
+      <ion-input formControlName="search_term" class="input-style" placeholder="Ex: Tacos or Arcades" clearInput></ion-input>
+    </ion-item>
+    <ion-item lines="none" class="ion-padding-top">
+      <ion-label class="input-title ion-no-margin" position="stacked">Address<span>*</span></ion-label>
+      <ion-input formControlName="search_address" class="input-style" placeholder="Enter address" clearInput></ion-input>
+    </ion-item>
+    <ion-item lines="none"class="ion-padding-top">
+      <ion-label class="input-title ion-no-margin" position="stacked"> Miles Radius</ion-label>
+      <ion-range formControlName="search_radius" min="5" max="20" pin="true" color="primary"></ion-range>
+    </ion-item>
+    <ion-button type="submit" [disabled]="searchForm.invalid" class="ion-padding-horizontal" color="primary" expand="block">Search</ion-button>
+  </form>
 
-  <ion-item lines="none">
-    <ion-label class="input-title ion-no-margin" position="stacked">Radius</ion-label>
-    <ion-range class="ion-padding-horizontal" [(ngModel)]="search_radius" min="0" max="20" pin="true" color="primary"></ion-range>
-  </ion-item>
-  <br>
-
-  <ion-button type="submit" class="ion-padding-horizontal" (click)="searchAddress()" color="primary" expand="block">Search</ion-button>
-  <br>
   <div id="map_canvas"></div>
 </ion-content>

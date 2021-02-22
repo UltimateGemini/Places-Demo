@@ -3,6 +3,14 @@
   height: 60%;
 }
 
+span {
+  color: var(--ion-color-danger);
+}
+
+ion-item {
+  --padding-end: 8px;
+}
+
 .input-title {
   font-weight: bold;
   letter-spacing: .4px;
