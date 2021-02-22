@@ -1,7 +1,7 @@
 # Places-Demo
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This is a simple app demo of using Google Maps API. By default users location will be shown. When the user enters an address and radius as values and submit, it will display the positon on the map below with a marker and a circle showing the radius. The second tabs displays search addresses.
+This is a simple app demo of using Google Maps API & Four Sqaure Places API. By default a search term, location and radius will be displayed. When the user enters a term, address and radius in the input fields then submits, it will display the positon on the map below with a red marker, Blue markers for nearest venues and a circle showing the radius (5 miles).
 
 
 ### Built With
@@ -9,6 +9,7 @@ This is a simple app demo of using Google Maps API. By default users location wi
 * [Ionic 5](https://ionicframework.com/docs)
 * [Angualar 11](https://angular.io/docs)
 * [Cordova-plugin-googlemaps](https://github.com/mapsplugin/cordova-plugin-googlemaps-doc)
+* [FourSquare Places API](https://developer.foursquare.com/docs/places-api/)
 
 
 <!-- GETTING STARTED -->
