@@ -67,7 +67,9 @@
     "plugins": {
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyACLXvbfDe7uGt3vAI_JAhP0Ny0m20nn-8",
-        "API_KEY_FOR_IOS": "AIzaSyACLXvbfDe7uGt3vAI_JAhP0Ny0m20nn-8"
+        "API_KEY_FOR_IOS": "AIzaSyACLXvbfDe7uGt3vAI_JAhP0Ny0m20nn-8",
+        "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
+        "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
       },
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
@@ -78,8 +80,8 @@
     },
     "platforms": [
       "browser",
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
